@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SimpleFileManager.Implementation
+namespace FileManagerSolution.Implementaion
 {
     class DateTimeProvider : IDateTimeProvider
     {

@@ -1,16 +1,12 @@
 ﻿using System;
 
-namespace SimpleFileManager
+namespace FileManagerSolution.Implementaion
 {
-    class FileManager: IFileManager
+    class FileManager : IFileManager
     {
-        private const string storagePath = @"Storage/";
-
-        private IDateTimeProvider _dateTimeProvider;
-
-        public FileManager(IDateTimeProvider dateTimeProvider)
+        public FileManager(IConfig config)
         {
-            _dateTimeProvider = dateTimeProvider;
+
         }
 
         public void WriteFile(string fileName, byte[] data)
@@ -24,6 +20,11 @@ namespace SimpleFileManager
         }
 
         public void DeleteFile(string fileName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteUnusedFiles()
         {
             throw new NotImplementedException();
         }

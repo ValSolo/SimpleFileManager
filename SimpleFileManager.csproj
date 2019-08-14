@@ -63,10 +63,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="FileManager\IDateTimeProvider.cs" />
-    <Compile Include="FileManager\Implementation\DateTimeProvider.cs" />
-    <Compile Include="FileManager\Implementation\FileManager.cs" />
-    <Compile Include="FileManager\IFileManager.cs" />
+    <Compile Include="FileManagerSolution\Implementation\Config.cs" />
+    <Compile Include="FileManagerSolution\IConfig.cs" />
+    <Compile Include="FileManagerSolution\IDateTimeProvider.cs" />
+    <Compile Include="FileManagerSolution\IFileTracker.cs" />
+    <Compile Include="FileManagerSolution\Implementation\DateTimeProvider.cs" />
+    <Compile Include="FileManagerSolution\Implementation\FileManager.cs" />
+    <Compile Include="FileManagerSolution\IFileManager.cs" />
+    <Compile Include="FileManagerSolution\Implementation\FileTracker.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
