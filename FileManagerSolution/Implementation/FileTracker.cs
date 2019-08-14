@@ -40,10 +40,32 @@ namespace FileManagerSolution.Implementaion
 
             CheckAndLoadStorageFile();
         }
- 
+
+        public void TrackFileAccess(string fileName)
+        {
+            long accessTime = _dateTimeProvider.GetDateTime().Ticks;
+
+            if (_storedFiles.Any(f => f.FileName == fileName))
+            {
+                _storedFiles.First(f => f.FileName == fileName).UpdateAccessTime(accessTime);
+            }
+            else
+            {
+                _storedFiles.Add(new StoredFile(fileName, accessTime));
+            }
+        }
+
+        public void DeleteFile(string fileName)
+        {
+            if (_storedFiles.Any(f => f.FileName == fileName))
+            {
+                _storedFiles.RemoveAll(f => f.FileName == fileName);
+            }
+        }
+
         public List<string> DeleteUnusedFiles()
         {
-            var thresholdTime = _dateTimeProvider.GetDateTime().AddSeconds(-1 * _storageTimeout).Ticks;      
+            var thresholdTime = _dateTimeProvider.GetDateTime().AddSeconds(-1 * _storageTimeout).Ticks;
             var neglectedFiles = _storedFiles.FindAll(f => f.LastAccessTime < thresholdTime);
 
             // assuming we call this function only when deleting files from storage right after getting the list
@@ -58,20 +80,6 @@ namespace FileManagerSolution.Implementaion
             }
 
             return neglectedFileNames;
-        }
-
-        public void TrackFileAccess(string fileName)
-        {
-            long accessTime = _dateTimeProvider.GetDateTime().Ticks;
-
-            if (_storedFiles.Any(f => f.FileName == fileName))
-            {
-                _storedFiles.First(f => f.FileName == fileName).UpdateAccessTime(accessTime);
-            }
-            else
-            {
-                _storedFiles.Add(new StoredFile(fileName, accessTime));
-            }
         }
 
         private void LoadStoredList()
