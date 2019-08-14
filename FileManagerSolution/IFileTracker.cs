@@ -10,6 +10,6 @@ namespace FileManagerSolution
     {
         void TrackFileAccess(string fileName);
         void DeleteFile(string fileName);
-        List<string> DeleteUnusedFiles();
+        List<string> GetUnusedFiles();
     }
 }

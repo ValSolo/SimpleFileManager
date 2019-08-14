@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace FileManagerSolution.Implementaion
 {
@@ -15,22 +16,43 @@ namespace FileManagerSolution.Implementaion
 
         public void WriteFile(string fileName, byte[] data)
         {
-            throw new NotImplementedException();
+            File.WriteAllBytes(GetFullPath(fileName), data);
+            _fileTracker.TrackFileAccess(fileName);
         }
 
         public bool ReadFile(string fileName, ref byte[] data)
         {
-            throw new NotImplementedException();
+            string fullPath = GetFullPath(fileName);
+            if (File.Exists(fullPath))
+            {
+                data = File.ReadAllBytes(fullPath);
+                _fileTracker.TrackFileAccess(fileName);
+                return true;
+            }
+            else
+            {
+                return false;
+            }            
         }
 
         public void DeleteFile(string fileName)
         {
-            throw new NotImplementedException();
+            File.Delete(GetFullPath(fileName));
+            _fileTracker.DeleteFile(fileName);
         }
 
         public void DeleteUnusedFiles()
         {
-            throw new NotImplementedException();
+            var unusedFileNames = _fileTracker.GetUnusedFiles();
+            foreach (var fileName in unusedFileNames)
+            {
+                DeleteFile(fileName);
+            }
+        }
+
+        private string GetFullPath(string fileName)
+        {
+            return _storagePath + fileName;
         }
     }
 }

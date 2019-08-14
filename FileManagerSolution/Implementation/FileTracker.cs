@@ -63,14 +63,10 @@ namespace FileManagerSolution.Implementaion
             }
         }
 
-        public List<string> DeleteUnusedFiles()
+        public List<string> GetUnusedFiles()
         {
             var thresholdTime = _dateTimeProvider.GetDateTime().AddSeconds(-1 * _storageTimeout).Ticks;
             var neglectedFiles = _storedFiles.FindAll(f => f.LastAccessTime < thresholdTime);
-
-            // assuming we call this function only when deleting files from storage right after getting the list
-            // otherwise we could cache this list or make another func to delete files from storage list, depending
-            _storedFiles = _storedFiles.Except(neglectedFiles).ToList();
 
             var neglectedFileNames = new List<string>();
 
