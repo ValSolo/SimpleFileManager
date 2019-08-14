@@ -3,7 +3,7 @@ using System.IO;
 
 namespace FileManagerSolution.Implementaion
 {
-    class FileManager : IFileManager
+    public class FileManager : IFileManager
     {
         string _storagePath;
         IFileTracker _fileTracker;

@@ -1,6 +1,6 @@
 ﻿namespace FileManagerSolution
 {
-    interface IFileManager
+    public interface IFileManager
     {
         void WriteFile(string fileName, byte[] data);
         bool ReadFile(string fileName, ref byte[] data);

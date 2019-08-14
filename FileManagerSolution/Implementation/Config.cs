@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace FileManagerSolution.Implementaion
 {
     //imitation of real config than we could get, e.g. from server
-    class Config : IConfig
+    public class Config : IConfig
     {
         public string StoragePath { get; private set; }
 

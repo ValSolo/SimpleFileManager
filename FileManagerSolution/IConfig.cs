@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FileManagerSolution
 {
-    interface IConfig
+    public interface IConfig
     {
         string StoragePath { get; }
         string StorageFile { get; }

@@ -2,3 +2,8 @@
 .vs/*
 obj/*
 packages/*
+bin/*
+FileManagerTests/obj/*
+FileManagerTests/.vs/*
+FileManagerTests/packages/*
+FileManagerTests/bin/*

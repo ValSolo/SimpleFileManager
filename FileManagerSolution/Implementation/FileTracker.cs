@@ -22,7 +22,7 @@ namespace FileManagerSolution.Implementaion
         }
     }
 
-    class FileTracker : IFileTracker
+    public class FileTracker : IFileTracker
     {
         private int _storageTimeout;
         private string _storageFile;
@@ -83,13 +83,16 @@ namespace FileManagerSolution.Implementaion
             using (StreamReader reader = new StreamReader(_storageFile))
             {
                 string json = reader.ReadToEnd();
-                _storedFiles = JsonConvert.DeserializeObject<List<StoredFile>>(json);
-                reader.Close();
+                if (!string.IsNullOrEmpty(json))
+                {
+                    _storedFiles = JsonConvert.DeserializeObject<List<StoredFile>>(json);
+                    reader.Close();
+                }                
             }
             
         }
 
-        private void SaveStoredList()
+        public void SaveStoredList()
         {
             string serializedFilesList = JsonConvert.SerializeObject(_storedFiles);
             using (StreamWriter writer = new StreamWriter(_storageFile))

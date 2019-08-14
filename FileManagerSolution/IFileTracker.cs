@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace FileManagerSolution
 {
-    interface IFileTracker
+    public interface IFileTracker
     {
         void TrackFileAccess(string fileName);
         void DeleteFile(string fileName);
         List<string> GetUnusedFiles();
+        void SaveStoredList();
     }
 }

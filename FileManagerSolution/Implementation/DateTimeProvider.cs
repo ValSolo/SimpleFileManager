@@ -2,7 +2,7 @@
 
 namespace FileManagerSolution.Implementaion
 {
-    class DateTimeProvider : IDateTimeProvider
+    public class DateTimeProvider : IDateTimeProvider
     {
         public DateTime GetDateTime()
         {

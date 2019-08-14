@@ -2,7 +2,7 @@
 
 namespace FileManagerSolution
 {
-    interface IDateTimeProvider
+    public interface IDateTimeProvider
     {
         DateTime GetDateTime();
     }
