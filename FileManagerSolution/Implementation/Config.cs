@@ -9,10 +9,17 @@ namespace FileManagerSolution.Implementaion
     //imitation of real config than we could get, e.g. from server
     class Config : IConfig
     {
-        public string StoragePath => throw new NotImplementedException();
+        public string StoragePath { get; private set; }
 
-        public string StorageFile => throw new NotImplementedException();
+        public string StorageFile { get; private set; }
 
-        public int StorageTimeout => throw new NotImplementedException();
+        public int StorageTimeout { get; private set; }
+
+        public Config()
+        {
+            StoragePath = @"./storage/";
+            StorageFile = @"./storage.json";
+            StorageTimeout = 60;
+        }
     }
 }

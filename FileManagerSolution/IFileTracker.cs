@@ -9,6 +9,6 @@ namespace FileManagerSolution
     interface IFileTracker
     {
         void TrackFileAccess(string fileName);
-        List<string> GetUnusedFiles();
+        List<string> DeleteUnusedFiles();
     }
 }

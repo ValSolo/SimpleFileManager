@@ -4,9 +4,13 @@ namespace FileManagerSolution.Implementaion
 {
     class FileManager : IFileManager
     {
-        public FileManager(IConfig config)
-        {
+        string _storagePath;
+        IFileTracker _fileTracker;
 
+        public FileManager(IConfig config, IFileTracker fileTracker)
+        {
+            _storagePath = config.StoragePath;
+            _fileTracker = fileTracker;
         }
 
         public void WriteFile(string fileName, byte[] data)
