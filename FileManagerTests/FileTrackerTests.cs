@@ -3,6 +3,7 @@ using FileManagerSolution.Implementaion;
 using Moq;
 using NUnit.Framework;
 using System.Collections.Generic;
+using System.IO;
 
 namespace FileManagerTests
 {
@@ -11,6 +12,8 @@ namespace FileManagerTests
         Mock<IConfig> _mockConfig;
         Mock<IDateTimeProvider> _mockDateTimeProvider;
         IFileTracker _fileTracker;
+
+        string _testFileName = "testFile";
 
         [SetUp]
         public void Setup()
@@ -29,30 +32,71 @@ namespace FileManagerTests
         [Test]
         public void TestUpdateAccessTime()
         {
-            _fileTracker.TrackFileAccess("testFile");
+            DeleteExistingFile();
+
+            _fileTracker.TrackFileAccess(_testFileName);
             _fileTracker.SaveStoredList();
-            // Check for file contents?
+
+            var properContents = "[{\"FileName\":\"" + _testFileName + "\",\"LastAccessTime\":" + _mockDateTimeProvider.Object.GetDateTime().Ticks + "}]";
+
+            StreamReader reader = new StreamReader(_mockConfig.Object.StorageFile);
+            var fileContents = reader.ReadToEnd();
+
+            Assert.AreEqual(properContents, fileContents);
         }
 
         [Test]
         public void TestDeleteFile()
         {
-            _fileTracker.TrackFileAccess("testFile");
-            _fileTracker.DeleteFile("testFile");
+            DeleteExistingFile();
+
+            _fileTracker.TrackFileAccess(_testFileName);
+            _fileTracker.DeleteFile(_testFileName);
             _fileTracker.SaveStoredList();
-            // Check for file contents?
+
+            var properContents = "[]";
+
+            StreamReader reader = new StreamReader(_mockConfig.Object.StorageFile);
+            var fileContents = reader.ReadToEnd();
+
+            Assert.AreEqual(properContents, fileContents);
         }
 
         [Test]
         public void TestGetUnusedFiles()
         {
             var testList = new List<string>();
-            testList.Add("testFile");
+            for (int i = 0; i < 3; i++)
+            {
+                testList.Add(_testFileName + i);
+            }
 
-            _fileTracker.TrackFileAccess("testFile");
+            foreach (var fileName in testList)
+            {
+                _fileTracker.TrackFileAccess(fileName);
+            }
+
             var unusedFiles = _fileTracker.GetUnusedFiles();
 
             Assert.AreEqual(testList, unusedFiles);            
+        }
+
+        [Test]
+        public void TestSaveFeature()
+        {
+            DeleteExistingFile();
+
+            _fileTracker.SaveStoredList();
+
+            Assert.IsTrue(File.Exists(_mockConfig.Object.StorageFile));
+        }
+
+        private void DeleteExistingFile()
+        {
+            if (File.Exists(_mockConfig.Object.StorageFile))
+            {
+                File.Delete(_mockConfig.Object.StorageFile);
+            }
         }
     }
 }
