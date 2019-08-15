@@ -12,6 +12,11 @@ namespace FileManagerSolution.Implementaion
         {
             _storagePath = config.StoragePath;
             _fileTracker = fileTracker;
+
+            if (!Directory.Exists(_storagePath))
+            {
+                Directory.CreateDirectory(_storagePath);
+            }
         }
 
         public void WriteFile(string fileName, byte[] data)
@@ -52,7 +57,7 @@ namespace FileManagerSolution.Implementaion
 
         private string GetFullPath(string fileName)
         {
-            return _storagePath + fileName;
+            return Path.Combine(_storagePath, fileName);
         }
     }
 }
