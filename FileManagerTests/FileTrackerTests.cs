@@ -41,6 +41,7 @@ namespace FileManagerTests
 
             StreamReader reader = new StreamReader(_mockConfig.Object.StorageFile);
             var fileContents = reader.ReadToEnd();
+            reader.Close();
 
             Assert.AreEqual(properContents, fileContents);
         }
@@ -58,6 +59,7 @@ namespace FileManagerTests
 
             StreamReader reader = new StreamReader(_mockConfig.Object.StorageFile);
             var fileContents = reader.ReadToEnd();
+            reader.Close();
 
             Assert.AreEqual(properContents, fileContents);
         }
