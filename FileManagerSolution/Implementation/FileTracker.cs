@@ -85,9 +85,9 @@ namespace FileManagerSolution.Implementaion
                 string json = reader.ReadToEnd();
                 if (!string.IsNullOrEmpty(json))
                 {
-                    _storedFiles = JsonConvert.DeserializeObject<List<StoredFile>>(json);
-                    reader.Close();
-                }                
+                    _storedFiles = JsonConvert.DeserializeObject<List<StoredFile>>(json);                    
+                }
+                reader.Close();
             }
             
         }
